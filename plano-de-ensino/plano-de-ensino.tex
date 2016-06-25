@@ -1,0 +1,79 @@
+\documentclass{UnBExam}%
+\usepackage{url}
+\usepackage[brazilian]{babel}
+\usepackage{amsmath}
+\disciplina{Treinamento para Competições de Programação}%
+\turma{}%
+\documento{}%
+\subdoc{Plano de ensino}%
+\periodo{}%
+\professora{Célia Ghedini Ralha}
+\newcommand{\dataprimeirodia}{11 de agosto de 2015}
+
+\setlength\parindent{0pt}% 	remover tabulação
+
+% Mudar estilo da seção
+\makeatletter%
+\renewcommand\section{\@startsection{section}{1}{\z@}%
+	{-3.5ex \@plus -1ex \@minus -.2ex}%
+	{2.3ex \@plus.2ex}%
+	{\normalfont\normalsize\bfseries}}%
+\makeatother%
+
+\printanswers
+
+\renewcommand{\indent}{\hspace{.5cm}}
+
+\begin{document}
+\section{Objetivo da disciplina}%
+\vspace{-.25cm}
+\indent Incentivar alunos da UnB a participarem de competições de programação.
+\vspace{-.3cm}
+\section{Procedimento de ensino}%
+\vspace{-.2cm}
+\indent O aluno deve utilizar recursos de aprendizado e treinamento autodidatas, como, por exemplo, bibliotecas públicas \cite{halim2013competitive,Skiena03,cormen2009introduction,Skiena08,Dasgupta06,pimentabook,pimentaarticle} e a Internet.
+\vspace{-.3cm}
+\section{Avaliação do aluno}%
+\vspace{-.25cm}
+\indent O aluno deve:
+\begin{enumerate}
+	\item se registrar na plataforma Codeforces pelo endereço \url{http://codeforces.com/register};
+	\item enviar um e-mail contendo seu nome completo, matrícula e nome de usuário na plataforma Codeforces (\emph{handle}) para o endereço \url{ghedini@unb.br}, com o assunto ``Handle no Codeforces'';
+	\item participar, durante o período letivo vigente da UnB, de no mínimo três competições com \textit{rating}, ou seja, competições que apareçam no gráfico de desempenho do usuário.\\
+	Exemplo de gráfico: \url{http://codeforces.com/profile/tourist}
+\end{enumerate}
+\indent O aluno que não realizar as etapas acima receberá menção final SR.
+
+\indent Sejam $P_1,P_2,...,P_n$ as pontuações de um aluno nas $n$ competições com \textit{rating} das quais ele participou no período vigente. Então
+
+\vspace{-.5cm}
+\begin{minipage}{8cm}
+	$$N = \frac{\sum_{i=1}^{n} P_i}{100n}$$
+\end{minipage}
+\begin{minipage}{8cm}
+	\[
+	\text{Menção final} =
+	\begin{cases}
+	\hfill \text{SR} \hfill & \text{se } 0 \leq N < 0.1 \\
+	\hfill \text{II} \hfill & \text{se } 0.1 \leq N < 3 \\
+	\hfill \text{MI} \hfill & \text{se } 3 \leq N < 5 \\
+	\hfill \text{MM} \hfill & \text{se } 5 \leq N < 7 \\
+	\hfill \text{MS} \hfill & \text{se } 7 \leq N < 9 \\
+	\hfill \text{SS} \hfill & \text{se } 9 \leq N \\
+	\end{cases}
+	\]
+\end{minipage}
+\vspace{-.75cm}
+\section{Informações úteis}
+\vspace{-.15cm}
+\indent -- As regras das competições estão no endereço \url{http://codeforces.com/blog/entry/4088}.
+
+\indent -- A plataforma Codeforces avisa por e-mail sobre competições que estão por vir.
+
+\indent -- Editoriais com as soluções dos problemas são publicados na plataforma após cada competição.
+\renewcommand\refname{\vskip -1cm}
+\vspace{-.75cm}
+\section{Bibliografia recomendada}%
+\bibliographystyle{unsrt}
+\bibliography{plano-de-ensino}
+\end{document}

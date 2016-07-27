@@ -13,7 +13,7 @@
     handles = {};
     var tmp = $("#handles").val().split("\n");
     for (var i = 0; i < tmp.length; i++) {
-      tmp[i] = tmp[i].trim();
+      tmp[i] = tmp[i].trim().toLowerCase();
       if (tmp[i].length == 0) continue;
       handles[tmp[i]] = "handle";
     }
@@ -26,10 +26,10 @@
     // init contests
     contests = {};
     
-    call_user(0);
+    request_user(0);
   }
   
-  function call_contest(i) {
+  function request_contest(i) {
     // stop recursion
     if (i >= contests.length) {
       // update view
@@ -53,7 +53,7 @@
         if (a.grade == "SR" && b.grade != "SR") return  1;
         if (a.score != b.score) return b.score - a.score;
         if (a.n != b.n) return b.n - a.n;
-        return Math.random()-0.5;
+        return 0;
       });
       $("#result").html("");
       $("#result").append($("<tr><th>Handle</th><th>Contests</th><th>Score</th><th>Grade</th></tr>"));
@@ -71,7 +71,7 @@
       success: function(response) {
         // call again for this contest
         if (response.status == "FAILED") {
-          call_contest(i);
+          request_contest(i);
           return;
         }
         
@@ -90,12 +90,12 @@
         }
         
         // call for next contest
-        call_contest(i+1);
+        request_contest(i+1);
       }
     });
   }
   
-  function call_user(i) {
+  function request_user(i) {
     // stop recursion
     if (i >= handles.length) {
       // update view
@@ -120,7 +120,7 @@
       handles = tmp;
       if (handles == "") return;
       
-      call_contest(0);
+      request_contest(0);
       return;
     }
     
@@ -131,12 +131,15 @@
       success: function(response) {
         // call again for this user
         if (response.status == "FAILED") {
-          call_user(i);
+          request_user(i);
           return;
         }
         
         // update view
         $("#users").html(Math.round(100*(i+1)/handles.length));
+        
+        // fix handle
+        if (response.result.length > 0) handles[i] = response.result[0].handle;
         
         // compute contests
         for (var j = 0; j < response.result.length; j++) {
@@ -145,7 +148,7 @@
         }
         
         // call for next user
-        call_user(i+1);
+        request_user(i+1);
       }
     })
   }

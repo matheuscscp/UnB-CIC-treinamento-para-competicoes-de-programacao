@@ -25,33 +25,26 @@
 \renewcommand{\indent}{\hspace{.5cm}}
 
 \begin{document}
-\section{Objetivo da disciplina}%
-\vspace{-.25cm}
+	
+\section{Objetivo da disciplina}
 \indent Incentivar alunos da UnB a participarem de competições de programação.
-\vspace{-.3cm}
-\section{Procedimento de ensino}%
-\vspace{-.2cm}
-\indent O aluno deve utilizar recursos de aprendizado e treinamento autodidatas, como bibliotecas públicas e a Internet \cite{halim2013competitive,Skiena03,cormen2009introduction,Skiena08,Dasgupta06,pimentabook,pimentaarticle}.
-\vspace{-.3cm}
-\section{Avaliação do aluno}%
-\vspace{-.25cm}
-\indent O aluno deve:
+
+\section{Procedimento de ensino}
+\indent O aluno deve utilizar recursos de aprendizado e treinamento autodidatas, como bibliotecas públicas e a Internet \cite{halim2013competitive,cormen2009introduction,pimentaarticle}.
+
+\section{Avaliação do aluno}
+\indent Até o fim do período de aulas do calendário universitário, o aluno deve:
 \begin{enumerate}
-	\item se registrar na plataforma Codeforces pelo endereço \url{http://codeforces.com/register};
-	\item enviar um e-mail com nome completo, matrícula e nome de usuário (\emph{handle}) na plataforma Codeforces para o endereço \url{ghedini@unb.br}, com o assunto ``Handle no Codeforces'';
-	\item participar, durante o \emph{período de aulas} do calendário universitário, de no mínimo três \textit{rounds} com \textit{rating}, ou seja, \textit{rounds} que são registrados no gráfico do competidor.\\
-	Exemplo: \url{http://codeforces.com/profile/tourist}
+	\item Se registrar na plataforma Codeforces (\url{http://codeforces.com/register}).
+	\item Preencher corretamente todas as informações de perfil social e atribuir ``University of Brasilia'' ao campo ``Organization'' (\url{http://codeforces.com/settings/social}).
+	\item Enviar para \url{ghedini@unb.br} nome de usuário no Codeforces (\textit{handle}).
+	\item Participar de no mínimo três competições com \textit{rating}, ou seja, competições que são registradas no gráfico do competidor (exemplo: \url{http://codeforces.com/profile/tourist}).
 \end{enumerate}
-\indent O aluno que não realizar algum dos itens acima receberá menção final SR.
+\indent Sejam $P_1,P_2,...,P_n$ as pontuações (somatório das pontuações de cada problema, de acordo com \url{http://codeforces.com/blog/entry/4088}) de um aluno nas $n$ competições registradas em seu gráfico durante o período de aulas. Se $n < 3$, então a menção final é SR. Caso contrário,
 
-\indent Sejam $S_1,S_2,...,S_n$ os \textit{scores} (\textit{score} não é \textit{rating}!) de um aluno nos $n$ \textit{rounds} registrados em seu gráfico durante o período de aulas. Se $n \geq 3$, então
-
-\vspace{-.5cm}
-\begin{minipage}{8cm}
-	$$N = \frac{\sum_{i=1}^{n} S_i}{100n}$$
-\end{minipage}
-\begin{minipage}{8cm}
-	\[
+\[
+\begin{array}{ccc}
+	N = \dfrac{\sum_{i=1}^{n} P_i}{100n} & \;\;\;\;\; \text{e} \;\;\;\;\; & 
 	\text{Menção final} =
 	\begin{cases}
 	\hfill \text{SR} \hfill & \text{se } 0 \leq N < 0.1 \\
@@ -61,18 +54,15 @@
 	\hfill \text{MS} \hfill & \text{se } 7 \leq N < 9 \\
 	\hfill \text{SS} \hfill & \text{se } 9 \leq N \\
 	\end{cases}
-	\]
-\end{minipage}
-\vspace{-.75cm}
+\end{array}
+\]
+
+\vspace{-1cm}
 \section{Informações úteis}
-\vspace{-.15cm}
-\indent -- As regras das competições estão no endereço \url{http://codeforces.com/blog/entry/4088}.
+\indent -- A opção ``Contest email notification'' da página \url{http://codeforces.com/settings/general} faz com que o Codeforces avise por e-mail sobre competições que estão por vir.
 
-\indent -- A plataforma Codeforces avisa por e-mail sobre competições que estão por vir.
-
-\indent -- Editoriais com as soluções dos problemas são publicados na plataforma após cada competição.
+\indent -- Geralmente, os autores de uma competição postam um editorial com as soluções dos problemas após o término da competição. Fique atento às postagens mais recentes!
 \renewcommand\refname{\vskip -1cm}
-\vspace{-.75cm}
 \section{Bibliografia recomendada}%
 \bibliographystyle{unsrt}
 \bibliography{plano-de-ensino}

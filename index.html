@@ -67,7 +67,7 @@
     // call Codeforces method
     $.ajax({
       crossDomain: true,
-      url: "http://codeforces.com/api/contest.standings?contestId="+contests[i]+"&handles="+handles,
+      url: "https://codeforces.com/api/contest.standings?contestId="+contests[i]+"&handles="+handles,
       success: function(response) {
         // call again for this contest
         if (response.status == "FAILED") {
@@ -126,7 +126,7 @@
     // call Codeforces method
     $.ajax({
       crossDomain: true,
-      url: "http://codeforces.com/api/user.rating?handle="+handles[i],
+      url: "https://codeforces.com/api/user.rating?handle="+handles[i],
       success: function(response) {
         // call again for this student
         if (response.status == "FAILED") {

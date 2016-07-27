@@ -2,8 +2,8 @@
 <script>
   function compute() {
     // init ajax loading messages
-    $("#msg1").html("Getting users' contests: <span id=\"contests\">0</span>%");
-    $("#msg2").html("Getting contests' scores: <span id=\"scores\">0</span>%");
+    $("#msg1").html("Requesting users: <span id=\"users\">0</span>%");
+    $("#msg2").html("Requesting contests: <span id=\"contests\">0</span>%");
     $("#result").html("");
     
     // compute start time
@@ -26,7 +26,7 @@
     // init contests
     contests = {};
     
-    call_student(0);
+    call_user(0);
   }
   
   function call_contest(i) {
@@ -34,11 +34,11 @@
     if (i >= contests.length) {
       // update view
       var result = [];
-      for (var handle in students) if ("score" in students[handle]) {
+      for (var handle in users) if ("score" in users[handle]) {
         var tmp = {};
         tmp.handle = handle;
-        tmp.n = students[handle].n;
-        tmp.score = Math.round(students[handle].score/tmp.n);
+        tmp.n = users[handle].n;
+        tmp.score = Math.round(users[handle].score/tmp.n);
         tmp.grade = tmp.score/100;
         if (tmp.n < 3 || tmp.grade < 0.1) tmp.grade = "SR";
         else if (tmp.grade < 3) tmp.grade = "II";
@@ -60,7 +60,7 @@
       for (var j = 0; j < result.length; j++) {
         $("#result").append($("<tr><td>"+result[j].handle+"</td><td>"+result[j].n+"</td><td>"+result[j].score+"</td><td>"+result[j].grade+"</td></tr>"));
       }
-      $("#scores").html("100");
+      $("#contests").html("100");
       return;
     }
     
@@ -76,7 +76,7 @@
         }
         
         // update view
-        $("#scores").html(Math.round(100*(i+1)/contests.length));
+        $("#contests").html(Math.round(100*(i+1)/contests.length));
         
         // compute scores
         for (var j = 0; j < response.result.rows.length; j++) {
@@ -85,36 +85,37 @@
             score += response.result.rows[j].problemResults[k].points;
           }
           var handle = response.result.rows[j].party.members[0].handle;
-          students[handle].score += score;
-          students[handle].n++;
+          users[handle].score += score;
+          users[handle].n++;
         }
         
+        // call for next contest
         call_contest(i+1);
       }
     });
   }
   
-  function call_student(i) {
+  function call_user(i) {
     // stop recursion
     if (i >= handles.length) {
       // update view
-      $("#contests").html("100");
+      $("#users").html("100");
       
       // compute contest ids
       var tmp = [];
       for (var j in contests) if (contests[j] == "contest") tmp.push(j);
       contests = tmp;
       
-      // compute handle list with semicolon and init students object
+      // compute handle list with semicolon and init users object
       tmp = "";
-      students = {};
+      users = {};
       if (handles.length > 0) {
         tmp += handles[0];
-        students[handles[0]] = {score: 0, n: 0};
+        users[handles[0]] = {score: 0, n: 0};
       }
       for (var j = 1; j < handles.length; j++) {
         tmp += ";"+handles[j];
-        students[handles[j]] = {score: 0, n: 0};
+        users[handles[j]] = {score: 0, n: 0};
       }
       handles = tmp;
       if (handles == "") return;
@@ -128,14 +129,14 @@
       crossDomain: true,
       url: "https://codeforces.com/api/user.rating?handle="+handles[i],
       success: function(response) {
-        // call again for this student
+        // call again for this user
         if (response.status == "FAILED") {
-          call_student(i);
+          call_user(i);
           return;
         }
         
         // update view
-        $("#contests").html(Math.round(100*(i+1)/handles.length));
+        $("#users").html(Math.round(100*(i+1)/handles.length));
         
         // compute contests
         for (var j = 0; j < response.result.length; j++) {
@@ -143,8 +144,8 @@
           contests[response.result[j].contestId] = "contest";
         }
         
-        // call for next student
-        call_student(i+1);
+        // call for next user
+        call_user(i+1);
       }
     })
   }

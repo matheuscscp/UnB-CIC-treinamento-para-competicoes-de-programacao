@@ -1,12 +1,22 @@
 <script src="jquery.min.js"></script>
 <script>
+  function invalid(i) {
+    if (invalids == 0) $("#invalids").append("<b>The following handles were not found:</b><br>");
+    invalids++;
+    $("#invalids").append(handles[i]+"<br>");
+    handles.splice(i,1);
+    handles_cnt++;
+    $("#users").html(Math.round(100*handles_cnt/handles_tot));
+  }
+  
   function compute() {
-    // init ajax loading messages
+    // update view
     $("#msg1").html("Requesting users: <span id=\"users\">0</span>%");
     $("#msg2").html("Requesting contests: <span id=\"contests\">0</span>%");
+    $("#invalids").html("");
     $("#result").html("");
     
-    // compute start time
+    // init start time
     start = new Date($("#year").val(), $("#month").val()-1, $("#day").val(), 0, 0, 0, 0).getTime()/1000;
     
     // init handles
@@ -22,6 +32,11 @@
       tmp.push(handle);
     }
     handles = tmp;
+    handles_tot = handles.length;
+    handles_cnt = 0;
+    
+    // init invalid handles count
+    invalids = 0;
     
     // init contests
     contests = {};
@@ -68,6 +83,9 @@
     $.ajax({
       crossDomain: true,
       url: "https://codeforces.com/api/contest.standings?contestId="+contests[i]+"&handles="+handles,
+      error: function() {
+        request_contest(i);
+      },
       success: function(response) {
         // call again for this contest
         if (response.status == "FAILED") {
@@ -128,15 +146,21 @@
     $.ajax({
       crossDomain: true,
       url: "https://codeforces.com/api/user.rating?handle="+handles[i],
+      error: function(xhr) {
+        if (xhr.status == 400) invalid(i);
+        request_user(i);
+      },
       success: function(response) {
         // call again for this user
         if (response.status == "FAILED") {
+          if (response.comment.indexOf("not found") != -1) invalid(i);
           request_user(i);
           return;
         }
         
         // update view
-        $("#users").html(Math.round(100*(i+1)/handles.length));
+        handles_cnt++;
+        $("#users").html(Math.round(100*handles_cnt/handles_tot));
         
         // fix handle
         if (response.result.length > 0) handles[i] = response.result[0].handle;
@@ -157,17 +181,28 @@
     $("button").click(compute);
   });
 </script>
-<table>
-  <tr><td>Year</td><td><input id="year" type="number" /></td></tr>
-  <tr><td>Month</td><td><input id="month" type="number" /></td></tr>
-  <tr><td>Day</td><td><input id="day" type="number" /></td></tr>
-  <tr><td valign="top">Handles</td><td><textarea id="handles" rows="10" cols="20"></textarea></td><td valign="top">(one handle per line)</td></tr>
+<table id="fields">
+  <tr><td class="field">Year</td><td><input id="year" type="number" /></td></tr>
+  <tr><td class="field">Month</td><td><input id="month" type="number" /></td></tr>
+  <tr><td class="field">Day</td><td><input id="day" type="number" /></td></tr>
+  <tr><td class="field" valign="top">Handles<br /><span class="normal-font">(one per line. Handles are converted to lower case)</span></td><td><textarea id="handles" rows="10" cols="20"></textarea></td></tr>
   <tr><td><button>Compute</button></td><td></tr>
 </table>
 <h1 id="msg1"></h1>
 <h1 id="msg2"></h1>
+<div id="invalids"></div>
 <table id="result"></table>
 <style>
+  .normal-font {
+    font-weight: normal;
+  }
+  table#fields .field {
+    width: 90px;
+    font-weight: bold;
+  }
+  div#invalids {
+    margin-bottom: 20px;
+  }
   table#result {
     border-collapse: collapse;
     font-family: 'Courier New', Courier, mono;

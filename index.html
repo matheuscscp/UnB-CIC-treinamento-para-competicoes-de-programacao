@@ -61,6 +61,7 @@
         if (rounds <= tmp.n) {
           for (var j = 0; j < rounds; j++) tmp.score += scores[j];
           tmp.score /= rounds;
+          tmp.score = Math.round(tmp.score);
         }
         tmp.grade = tmp.score*multiplier;
              if (tmp.grade < 0.1) tmp.grade = "SR";

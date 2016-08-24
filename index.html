@@ -49,18 +49,26 @@
     if (i >= contests.length) {
       // update view
       var result = [];
-      for (var handle in users) if ("score" in users[handle]) {
+      var rounds = 3;
+      var multiplier = 0.01;
+      for (var handle in users) if ("scores" in users[handle]) {
+        var scores = users[handle].scores;
+        scores.sort(function(a,b){return b-a;});
         var tmp = {};
         tmp.handle = handle;
-        tmp.n = users[handle].n;
-        tmp.score = Math.round(users[handle].score/tmp.n);
-        tmp.grade = tmp.score/100;
-        if (tmp.n < 3 || tmp.grade < 0.1) tmp.grade = "SR";
-        else if (tmp.grade < 3) tmp.grade = "II";
-        else if (tmp.grade < 5) tmp.grade = "MI";
-        else if (tmp.grade < 7) tmp.grade = "MM";
-        else if (tmp.grade < 9) tmp.grade = "MS";
-        else                    tmp.grade = "SS";
+        tmp.n = scores.length;
+        tmp.score = 0;
+        if (rounds <= tmp.n) {
+          for (var j = 0; j < rounds; j++) tmp.score += scores[j];
+          tmp.score /= rounds;
+        }
+        tmp.grade = tmp.score*multiplier;
+             if (tmp.grade < 0.1) tmp.grade = "SR";
+        else if (tmp.grade <   3) tmp.grade = "II";
+        else if (tmp.grade <   5) tmp.grade = "MI";
+        else if (tmp.grade <   7) tmp.grade = "MM";
+        else if (tmp.grade <   9) tmp.grade = "MS";
+        else                      tmp.grade = "SS";
         result.push(tmp);
       }
       result.sort(function(a,b) {
@@ -103,8 +111,7 @@
             score += response.result.rows[j].problemResults[k].points;
           }
           var handle = response.result.rows[j].party.members[0].handle;
-          users[handle].score += score;
-          users[handle].n++;
+          users[handle].scores.push(score);
         }
         
         // call for next contest
@@ -129,11 +136,11 @@
       users = {};
       if (handles.length > 0) {
         tmp += handles[0];
-        users[handles[0]] = {score: 0, n: 0};
+        users[handles[0]] = {scores: []};
       }
       for (var j = 1; j < handles.length; j++) {
         tmp += ";"+handles[j];
-        users[handles[j]] = {score: 0, n: 0};
+        users[handles[j]] = {scores: []};
       }
       handles = tmp;
       if (handles == "") return;

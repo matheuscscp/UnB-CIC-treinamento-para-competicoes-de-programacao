@@ -9,6 +9,8 @@
 \periodo{}%
 \professora{Célia Ghedini Ralha}
 \newcommand{\dataprimeirodia}{11 de agosto de 2015}
+\newcommand{\numerocontests}{3}
+\newcommand{\fatorescala}{100}
 
 \setlength\parindent{0pt}% 	remover tabulação
 
@@ -40,12 +42,11 @@
 	\item Enviar para \url{ghedini@unb.br} seu nome de usuário no Codeforces (o campo \textit{handle}).
 	\item Participar de no mínimo três competições com \textit{rating}, ou seja, competições que são registradas em seu gráfico de desempenho (exemplo: \url{http://codeforces.com/profile/tourist}).
 \end{enumerate}
-\indent Seja $P_i$ o somatório das pontuações obtidas para cada problema resolvido por um aluno na $i$-ésima competição registrada em seu gráfico durante o período de aulas, com $1 \leq i \leq n$. Se $n < 3$, então a menção final é SR. Caso contrário,
+\indent Seja $N$ a média aritmética dos \numerocontests\ maiores \textit{scores} (apenas \textit{score} obtido por solucionar problemas é considerado) registrados no gráfico do aluno durante o período de aulas (se há menos do que \numerocontests\ competições registradas a menção final é SR) dividida por \fatorescala. Então
 
-\vspace{-.7cm}
+\vspace{-.3cm}
 \[
 \begin{array}{ccc}
-	N = \dfrac{\sum_{i=1}^{n} P_i}{100n} & \;\;\;\;\; \text{e} \;\;\;\;\; & 
 	\text{Menção final} =
 	\begin{cases}
 	\hfill \text{SR} \hfill & \text{se } 0 \leq N < 0.1 \\
@@ -58,7 +59,7 @@
 \end{array}
 \]
 
-\vspace{-1.4cm}
+\vspace{-1.6cm}
 \section{Informações úteis}
 \indent -- Há uma postagem com as regras das competições (\url{http://codeforces.com/blog/entry/4088}).
 
@@ -66,7 +67,7 @@
 
 \indent -- Geralmente, os autores de uma competição postam um editorial com as soluções dos problemas após o término da competição. Fique atento às postagens mais recentes!
 
-\indent -- As menções finais serão calculadas com a seguinte calculadora:\\ \url{https://matheuscscp.github.io/UnB-CIC-treinamento-para-competicoes-de-programacao/}
+\indent -- As menções finais serão calculadas com a seguinte calculadora: \url{http://goo.gl/7n4N7m}
 
 \renewcommand\refname{\vskip -1cm}
 \section{Bibliografia recomendada}

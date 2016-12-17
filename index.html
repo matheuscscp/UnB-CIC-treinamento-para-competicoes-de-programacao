@@ -1,3 +1,4 @@
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <script src="jquery.min.js"></script>
 <script>
   function invalid(i) {
@@ -11,13 +12,14 @@
   
   function compute() {
     // update view
-    $("#msg1").html("Requesting users: <span id=\"users\">0</span>%");
-    $("#msg2").html("Requesting contests: <span id=\"contests\">0</span>%");
+    $("#msg1").html("Requisitando usuários: <span id=\"users\">0</span>%");
+    $("#msg2").html("Requisitando competições: <span id=\"contests\">0</span>%");
     $("#invalids").html("");
     $("#result").html("");
     
     // init start time
-    start = new Date($("#year").val(), $("#month").val()-1, $("#day").val(), 0, 0, 0, 0).getTime()/1000;
+    start = new Date($("#start").val()).getTime()/1000;
+    finish = new Date($("#finish").val()).getTime()/1000 + 86400;
     
     // init handles
     handles = {};
@@ -49,8 +51,8 @@
     if (i >= contests.length) {
       // update view
       var result = [];
-      var rounds = 3;
-      var multiplier = 0.01;
+      var rounds = $("#rounds").val();
+      var scale = $("#scale").val();
       for (var handle in users) if ("scores" in users[handle]) {
         var scores = users[handle].scores;
         scores.sort(function(a,b){return b-a;});
@@ -63,7 +65,7 @@
           tmp.score /= rounds;
           tmp.score = Math.round(tmp.score);
         }
-        tmp.grade = tmp.score*multiplier;
+        tmp.grade = 10*tmp.score/scale;
              if (tmp.grade < 0.1) tmp.grade = "SR";
         else if (tmp.grade <   3) tmp.grade = "II";
         else if (tmp.grade <   5) tmp.grade = "MI";
@@ -80,7 +82,7 @@
         return 0;
       });
       $("#result").html("");
-      $("#result").append($("<tr><th>Handle</th><th>Contests</th><th>Score</th><th>Grade</th></tr>"));
+      $("#result").append($("<tr><th>Handle</th><th>Competições</th><th>Score</th><th>Menção</th></tr>"));
       for (var j = 0; j < result.length; j++) {
         $("#result").append($("<tr><td>"+result[j].handle+"</td><td>"+result[j].n+"</td><td>"+result[j].score+"</td><td>"+result[j].grade+"</td></tr>"));
       }
@@ -175,7 +177,8 @@
         
         // compute contests
         for (var j = 0; j < response.result.length; j++) {
-          if (response.result[j].ratingUpdateTimeSeconds < start) continue;
+          var t = response.result[j].ratingUpdateTimeSeconds;
+          if (t < start || finish <= t) continue;
           contests[response.result[j].contestId] = "contest";
         }
         
@@ -190,12 +193,13 @@
   });
 </script>
 <table id="fields">
-  <tr><td class="field">Year</td><td><input id="year" type="number" /></td></tr>
-  <tr><td class="field">Month</td><td><input id="month" type="number" /></td></tr>
-  <tr><td class="field">Day</td><td><input id="day" type="number" /></td></tr>
-  <tr><td class="field" valign="top">Handles<br /><span class="normal-font">(one per line. Handles are converted to lower case)</span></td><td><textarea id="handles" rows="10" cols="20"></textarea></td></tr>
-  <tr><td><button>Compute</button></td><td></tr>
+  <tr><td class="field">Primeiro dia de aula<br /><span class="normal-font">(mm/dd/yyyy)</span></td><td><input id="start" type="date" /></td></tr>
+  <tr><td class="field">Último dia de aula<br /><span class="normal-font">(mm/dd/yyyy)</span></td><td><input id="finish" type="date" /></td></tr>
+  <tr><td class="field">Número mínimo de competições</td><td><input id="rounds" type="number" /></td></tr>
+  <tr><td class="field">Score nota 10</td><td><input id="scale" type="number" /></td></tr>
+  <tr><td class="field" valign="top">Handles<br /><span class="normal-font">(um por linha)</span></td><td><textarea id="handles" rows="20" cols="40"></textarea></td></tr>
 </table>
+<button>Calcular menções</button>
 <h1 id="msg1"></h1>
 <h1 id="msg2"></h1>
 <div id="invalids"></div>
@@ -204,8 +208,16 @@
   .normal-font {
     font-weight: normal;
   }
+  table#fields {
+    border-collapse: collapse;
+    margin: 5px;
+  }
+  table#fields td {
+    border: 1px solid;
+    padding: 5px;
+  }
   table#fields .field {
-    width: 90px;
+    width: 150px;
     font-weight: bold;
   }
   div#invalids {

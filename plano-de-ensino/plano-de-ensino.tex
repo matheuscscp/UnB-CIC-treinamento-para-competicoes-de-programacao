@@ -9,7 +9,7 @@
 \periodo{}%
 \professora{Carla Denise Castanho}
 \newcommand{\numerocontests}{3}
-\newcommand{\fatorescala}{100}
+\newcommand{\fatorescala}{150}
 
 \setlength\parindent{0pt}% 	remover tabulação
 
@@ -28,30 +28,28 @@
 \begin{document}
 
 \section{Objetivo da disciplina}
-\vspace{-.25cm}
-\indent Incentivar alunos da UnB a participarem de competições de programação.
+\indent Esta disciplina recursável tem como objetivo incentivar os alunos da UnB a participarem de competições de programação.
 
-\vspace{-.25cm}
+\vspace{-.1cm}
 \section{Procedimento de ensino}
-\vspace{-.25cm}
-\indent Não haverão aulas ou avaliações presenciais. O aluno deve utilizar recursos de aprendizado e treinamento autodidatas, como bibliotecas públicas e a Internet \cite{halim2013competitive,cormen2009introduction,pimentaarticle}.
+\indent Não haverão aulas ou avaliações presenciais. O aluno deve utilizar recursos de aprendizado e treinamento autodidatas, como livros \cite{halim2013competitive,cormen2009introduction} e a Internet.
 
-\vspace{-.25cm}
+\vspace{-.1cm}
 \section{Avaliação do aluno}
-\vspace{-.25cm}
-\indent Até o fim do \textbf{período de aulas} do calendário universitário \textbf{original} (alterações no calendário feitas no decorrer do período não afetam este curso!), o aluno deve realizar as seguintes tarefas (caso contrário receberá menção SR):
+\indent Até o fim do \textbf{período de aulas} do \textbf{calendário universitário de graduação} (alterações feitas no calendário durante o período não afetam esta disciplina e, portanto, não serão consideradas), o aluno deve realizar as seguintes tarefas (caso contrário receberá menção final SR):
 \begin{enumerate}
 	\item Registrar-se na plataforma Codeforces (\url{http://codeforces.com/register}).
-	\item Preencher corretamente todas as informações sociais e atribuir \texttt{University of Brasilia} ao campo \texttt{Organization} (\url{http://codeforces.com/settings/social}).
-	\item Enviar para \url{carladenisecastanho@gmail.com} seu nome de usuário no Codeforces (o campo \texttt{handle}).
-	\item Ler as instruções e regras das competições (\url{http://codeforces.com/blog/entry/4088}).
-	\item Participar de \textbf{no mínimo \numerocontests} competições com \textit{rating} (competições que são registradas em seu gráfico de desempenho. Exemplo: \url{http://codeforces.com/profile/tourist}).
+	\item Preencher as informações sociais e atribuir \texttt{University of Brasilia} ao campo \texttt{Organization} (\url{http://codeforces.com/settings/social}).
+	\item Enviar para \url{carladenisecastanho@gmail.com} seu nome completo, matrícula e nome de usuário no Codeforces (campo \texttt{handle}).
+	\item Ler as regras das competições do Codeforces (\url{http://codeforces.com/blog/entry/4088}).
+	\item Participar de \textbf{no mínimo \numerocontests} competições com \textit{rating}, ou seja, aquelas que ficam registradas no gráfico de desempenho do usuário (exemplo: \url{http://codeforces.com/profile/tourist}).
 \end{enumerate}
-\indent Seja $M$ a média aritmética dos \numerocontests\ maiores \textit{scores} (apenas \textit{score} obtido por solucionar problemas é considerado!) registrados no gráfico do aluno durante o período de aulas e seja $N = M/\fatorescala$. Então
+\indent Sejam $S_1 \geq S_2 \geq \cdots \geq S_n$ os \textit{scores} obtidos nas $n$ competições registradas no gráfico do aluno durante o período de aulas, em ordem não-crescente (apenas \textit{score} obtido por solucionar problemas é considerado!). Então
 
-\vspace{-.2cm}
+\vspace{-.8cm}
 \[
 \begin{array}{ccc}
+	N = \dfrac{1}{\fatorescala} \dfrac{\sum_{i=1}^{\numerocontests} S_i}{\numerocontests} & \;\;\;\;\; \text{e} \;\;\;\;\; &
 	\text{Menção final} =
 	\begin{cases}
 	\hfill \text{SR} \hfill & \text{se } N \in [0,0.1)   \\
@@ -64,18 +62,20 @@
 \end{array}
 \]
 
-\vspace{-1cm}
+\vspace{-1.8cm}
 \section{Informações úteis}
-\vspace{-.25cm}
-\indent -- A opção ``Contest email notification'' (\url{http://codeforces.com/settings/general}) faz com que a plataforma avise por e-mail sobre competições que estão por vir.
+\vspace{-.2cm}
+\indent -- Listas de exercícios: \url{https://a2oj.com/ladders}
 
-\indent -- Geralmente, os autores de uma competição postam um editorial com as soluções dos problemas após o término da competição. Fique atento às postagens mais recentes!
+\indent -- A opção \texttt{Contest email notification} faz com que a plataforma avise por e-mail sobre competições que estão por vir (\url{http://codeforces.com/settings/general}).
+
+\indent -- Geralmente, após o término da competição, os autores postam editoriais com as soluções dos problemas. Fique de olho nas postagens recentes!
 
 \indent -- As menções finais serão calculadas com a seguinte calculadora: \url{http://goo.gl/7n4N7m}
 
 \renewcommand\refname{\vskip -1cm}
 
-\vspace{-.25cm}
+\vspace{-.1cm}
 \section{Bibliografia recomendada}
 \bibliographystyle{unsrt}
 \bibliography{plano-de-ensino}

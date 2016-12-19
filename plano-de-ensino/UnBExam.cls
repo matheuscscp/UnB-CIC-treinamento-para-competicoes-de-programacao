@@ -59,7 +59,7 @@
 \newcommand{\disciplina}[1]{\def\@disciplina{#1}}%
 \newcommand{\turma}[1]{\def\@turma{#1}}%
 \newcommand{\professor}[2][Prof.]{\def\@professor{#1 #2}}%
-\newcommand{\professora}[2][Prof.ª]{\def\@professora{#1 #2}}%
+\newcommand{\professora}[2][]{\def\@professora{#1 #2}}%
 
 \newcommand{\documento}[1]{\def\@documento{#1}}%
 \newcommand{\subdoc}[1]{\def\@subdoc{#1}}%

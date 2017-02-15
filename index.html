@@ -82,9 +82,9 @@
         return 0;
       });
       $("#result").html("");
-      $("#result").append($("<tr><th>Handle</th><th>Competições</th><th>Score</th><th>Menção</th></tr>"));
+      $("#result").append($("<tr><th>#</th><th>Handle</th><th>Competições</th><th>Score</th><th>Menção</th></tr>"));
       for (var j = 0; j < result.length; j++) {
-        $("#result").append($("<tr><td>"+result[j].handle+"</td><td>"+result[j].n+"</td><td>"+result[j].score+"</td><td>"+result[j].grade+"</td></tr>"));
+        $("#result").append($("<tr><td>"+(j+1)+"</td><td>"+result[j].handle+"</td><td>"+result[j].n+"</td><td>"+result[j].score+"</td><td>"+result[j].grade+"</td></tr>"));
       }
       $("#contests").html("100");
       return;
